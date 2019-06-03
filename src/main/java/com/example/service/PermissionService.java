@@ -5,21 +5,21 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import com.example.entity.SysPression;
+import com.example.entity.SysPermission;
 import com.example.entity.SysUser;
 
 /**
  * @deprecated:
  * @author作者：mp 2019年6月3日
  */
-public interface PressionService {
-	SysPression findByName(String name);
+public interface PermissionService {
+	SysPermission findByName(String name);
 
 	void deleteById(Integer id);
 
-	void AddSysPression(SysUser user);
+	void AddSysPression(SysPermission user);
 
-	List<SysPression> findAll();
+	List<SysPermission> findAll();
 
-	Page<SysPression> findAll(Pageable pageable);
+	Page<SysPermission> findAll(Pageable pageable);
 }

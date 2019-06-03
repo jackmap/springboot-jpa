@@ -17,9 +17,9 @@ import com.example.entity.SysUser;
  */
 public interface UserService {
 
-	SysUser findByName(String name);
+	SysUser findByUsername(String name);
 
-	SysUser findByUserNameOrEmail(String username, String email);
+	SysUser findByUsernameOrEmail(String username, String email);
 
 	SysUser findByEmail(String email);
 

@@ -34,19 +34,17 @@ public class RoleServiceImp implements RoleService {
 
 	@Override
 	public void deleteById(Integer id) {
-		// TODO Auto-generated method stub
-		
+		roleRepository.deleteById(id);
 	}
 
 	@Override
-	public void AddSysRole(SysRole user) {
-		// TODO Auto-generated method stub
+	public void AddSysRole(SysRole role) {
+		roleRepository.save(role);
 		
 	}
 
 	@Override
 	public List<SysRole> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		return roleRepository.findAll();
 	}
 }

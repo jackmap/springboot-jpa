@@ -2,6 +2,7 @@ package com.example.service.serviceImpl;
 
 import java.util.List;
 
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -23,7 +24,7 @@ public class UserServiceImpl implements UserService {
 	public UserRepository userRepository;
 	
 	@Override
-	public SysUser findByName(String name) {
+	public SysUser findByUsername(String name) {
 		return userRepository.findAll().get(0);
 	}
 
@@ -33,13 +34,14 @@ public class UserServiceImpl implements UserService {
 		return page;
 	}
 	@Override
-	public SysUser findByUserNameOrEmail(String username, String email) {
-		return userRepository.findByUserNameOrEmail(username,email);
+	public SysUser findByUsernameOrEmail(String username, String email) {
+		return userRepository.findByUsernameOrEmail(username,email);
 	}
 	@Override
 	public SysUser findByEmail(String email) {
-		return userRepository.findByUserNameOrEmail(null, email);
+		return userRepository.findByUsernameOrEmail(null, email);
 	}
+	
 	@Override
 	public void deleteById(Integer id) {
 		userRepository.deleteById(id);
@@ -47,7 +49,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void AddSysUser(SysUser user) {
-		userRepository.saveAndFlush(user);
+		userRepository.save(user);
 	}
 
 	@Override

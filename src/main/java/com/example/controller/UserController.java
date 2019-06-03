@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.entity.SysUser;
 
-
 /**
  * @deprecated:
  * @author作者：mp 2019年6月3日
@@ -26,14 +25,33 @@ public class UserController {
 	@GetMapping("/getAll")
 	@ResponseBody
 	public Page<SysUser> GetIndex() {
-		int pageNumber=0,size=10;
-		Sort sort = new Sort(Sort.Direction.DESC, "userId");
+		int pageNumber = 0, size = 10;
+		Sort sort = new Sort(Sort.Direction.DESC, "uid");
 		Pageable pageable = PageRequest.of(pageNumber, size, sort);
-		Page<SysUser> page=UserService.findAll(pageable);
-		for (SysUser user:page){
-			System.out.println("userDetail: "+user.toString());
+		Page<SysUser> page = UserService.findAll(pageable);
+		for (SysUser user : page) {
+			System.out.println("userDetail: " + user.toString());
 		}
 		return page;
+	}
+
+	@GetMapping("/deleteById")
+	@ResponseBody
+	public void DeleteById(Integer id) {
+		UserService.deleteById(id);
+		;
+	}
+
+	@GetMapping("/save")
+	@ResponseBody
+	public void Save(SysUser user) {
+		UserService.AddSysUser(user);
+	}
+
+	@GetMapping("/update")
+	@ResponseBody
+	public void Update(SysUser user) {
+		UserService.AddSysUser(user);
 	}
 
 }
