@@ -33,16 +33,14 @@ public class UserController {
 
 	@GetMapping("/getAll")
 	@ResponseBody
-	public JSONResult GetUsers(@RequestBody PageModel pagemodel) {
-		System.out.println(pagemodel.getLimit());
-		Sort sort = new Sort(Sort.Direction.DESC, "uid");
-		Pageable pageable = PageRequest.of(pagemodel.getPage(), pagemodel.getLimit(), sort);
-		Page<SysUser> page = UserService.findAll(pageable);
-		System.out.print(page.getSize());
+	public JSONResult GetUsers(PageModel pagemodel) {
 		JSONResult result=new JSONResult();
+		Sort sort = new Sort(Sort.Direction.DESC, "uid");
+		Pageable pageable = PageRequest.of(pagemodel.getPage()-1, pagemodel.getLimit(), sort);
+		Page<SysUser> page = UserService.findAll(pageable);
 		result.setCode(0);
-		result.setCount(page.getTotalPages());
 		result.setData(page.getContent());
+		result.setCount(page.getTotalPages());
 		return result;
 	}
 

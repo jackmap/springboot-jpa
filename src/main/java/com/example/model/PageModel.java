@@ -9,18 +9,18 @@ public class PageModel {
 	 * @deprecated:
 	 * @author作者：mp 2019年6月4日
 	 */
-	public Integer page;
-	public Integer limit;
-	public Integer getPage() {
+	public int page;
+	public int limit;
+	public int getPage() {
 		return page;
 	}
-	public void setPage(Integer page) {
+	public void setPage(int page) {
 		this.page = page;
 	}
-	public Integer getLimit() {
+	public int getLimit() {
 		return limit;
 	}
-	public void setLimit(Integer limit) {
+	public void setLimit(int limit) {
 		this.limit = limit;
 	}
 	
