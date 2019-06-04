@@ -1,9 +1,8 @@
 package com.example.entity;
 
 import java.io.Serializable;
-import java.util.List;
-
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 /**
  * The persistent class for the sys_user database table.
@@ -16,11 +15,14 @@ public class SysUser implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue
 	private Integer uid;
 	@Column(unique = true)
 	private String username;// 帐号
 	private String name;// 名称（昵称或者真实姓名，不同系统不同定义）
+	@NotNull
 	private String password; // 密码;
+	@NotNull
 	private String salt;// 加密密码的盐
 	private String email; // 邮箱;
 	private String qq; // qq;
@@ -31,11 +33,12 @@ public class SysUser implements Serializable {
 	private String address3; // 地址3 区;
 	private String country; // 国家;
 	private byte state;// 用户状态,0:创建未认证（比如没有激活，没有输入验证码等等）--等待验证的用户 , 1:正常状态,2：用户被锁定.
+
+	//	@ManyToMany(fetch = FetchType.EAGER) // 立即从数据库中进行加载数据;
+//	@JoinTable(name = "SysUserRole", joinColumns = { @JoinColumn(name = "uid") }, inverseJoinColumns = {
+//			@JoinColumn(name = "roleId") })
 	
-	@ManyToMany(fetch = FetchType.EAGER) // 立即从数据库中进行加载数据;
-	@JoinTable(name = "SysUserRole", joinColumns = { @JoinColumn(name = "uid") }, inverseJoinColumns = {
-			@JoinColumn(name = "roleId") })
-	private List<SysRole> roleList;// 一个用户具有多个角色
+	private String roleList;// 一个用户具有多个角色
 
 	public Integer getUid() {
 		return uid;
@@ -85,11 +88,11 @@ public class SysUser implements Serializable {
 		this.state = state;
 	}
 
-	public List<SysRole> getRoleList() {
+	public String getRoleList() {
 		return roleList;
 	}
 
-	public void setRoleList(List<SysRole> roleList) {
+	public void setRoleList(String roleList) {
 		this.roleList = roleList;
 	}
 
@@ -159,14 +162,6 @@ public class SysUser implements Serializable {
 
 	public void setCountry(String country) {
 		this.country = country;
-	}
-
-	@Override
-	public String toString() {
-		return "SysUser [uid=" + uid + ", username=" + username + ", name=" + name + ", password=" + password
-				+ ", salt=" + salt + ", email=" + email + ", qq=" + qq + ", phone=" + phone + ", tel=" + tel
-				+ ", address1=" + address1 + ", address2=" + address2 + ", address3=" + address3 + ", country="
-				+ country + ", state=" + state + ", roleList=" + roleList + "]";
 	}
 
 }

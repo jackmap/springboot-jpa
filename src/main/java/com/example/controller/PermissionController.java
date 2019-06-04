@@ -19,7 +19,7 @@ import com.example.service.PermissionService;
  * @author作者：mp 2019年6月3日
  */
 @RestController
-@RequestMapping("/sys/pression")
+@RequestMapping("/sys/permission")
 public class PermissionController {
 	@Autowired
 	public PermissionService permissionService;

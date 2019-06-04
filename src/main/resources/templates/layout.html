@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+<head th:replace="base :: common_header(~{::title},~{::link})">
+<meta charset="UTF-8"></meta>
+<title>模板页</title>
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+<link rel="stylesheet" th:href="@{/css/fragment.css}">
+
+<link rel="stylesheet" th:href="@{font-awesome-4.7.0/css/font-awesome.min.css}">
+<link rel="stylesheet" th:href="@{css/font-icon-style.css}">
+<link rel="stylesheet" th:href="@{css/style.default.css}"
+	id="theme-stylesheet">
+
+<!-- Core stylesheets -->
+<link rel="stylesheet" th:href="@{css/ui-elements/card.css}">
+<link rel="stylesheet" th:href="@{css/style.css}">
+<link rel="stylesheet" th:href="@{css/layui/css/layui.css}">
+
+ <script type="text/javascript" th:src="@{/js/myapp.js}"></script>
+ <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+ <script type="text/javascript" th:src="@{/js/layui/layui.js}" charset="utf-8"></script>
+</head>
+<body>
+	<div>
+		<div th:replace="layout/header :: header"></div>
+		<div th:replace="layout/left :: left"></div>
+		<div layout:fragment="content">content</div>
+		<div th:replace="layout/footer :: footer"></div>
+	</div>
+</body>
+</html>

@@ -81,13 +81,10 @@ public class ShiroConfiguration {
 		filterChainDefinitionManager.put("/transport/**", "authc");
 		filterChainDefinitionManager.put("/login/*", "anon");// anon 可以理解为不拦截
 		filterChainDefinitionManager.put("/js/**", "anon");// 静态资源不拦截
-		filterChainDefinitionManager.put("/images/**", "anon");// 静态资源不拦截
+		filterChainDefinitionManager.put("/img/**", "anon");// 静态资源不拦截
 		filterChainDefinitionManager.put("/css/**", "anon");// 静态资源不拦截
 		filterChainDefinitionManager.put("/resources/**", "anon");// 静态资源不拦截
 		filterChainDefinitionManager.put("/**", "authc");//表示需要认证才可以访问
-		filterChainDefinitionManager.put("/upload/excel/**", "authc");//表示需要认证才可以访问
-		
-		filterChainDefinitionManager.put("/index", "anon");
 		
 		shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionManager);
 		// 登入路径

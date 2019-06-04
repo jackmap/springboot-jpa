@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"></meta>
+<title>left</title>
+</head>
+<body>
+	<left th:fragment="left">
+	<div class="page-content d-flex align-items-stretch">
+		<!--***** SIDE NAVBAR *****-->
+		<nav class="side-navbar">
+			<div class="sidebar-header d-flex align-items-center">
+				<div class="avatar">
+					<img src="img/avatar-1.jpg" alt="..."
+						class="img-fluid rounded-circle">
+				</div>
+				<div class="title">
+					<h1 class="h4">Steena Ben</h1>
+				</div>
+			</div>
+			<hr>
+			<ul class="list-unstyled" th:each="Permission:${Permissions}">
+			   <li th:if="${Permission.parentId=='0'}">
+				<a th:href="${Permission.url}"> <i class="icon-picture"  >
+				</i><span th:text="${Permission.name}"></span></a>
+				</li>
+			</ul>
+			<ul class="list-unstyled"  th:each="Permission:${Permissions}">
+				<li th:if="${Permission.parentId!='0'}">
+				<a th:href="${Permission.url}"> <i class="icon-picture"  >
+				</i>
+				<span th:text="${Permission.name}"></span>
+				</a>
+				</li>
+			</ul>
+			<span class="heading">Extras</span>
+		</nav>
+	</div>
+	</left>
+</body>
+</html>

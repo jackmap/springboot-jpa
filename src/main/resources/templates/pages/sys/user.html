@@ -1,0 +1,45 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorate="layout">
+<head>
+<meta charset="UTF-8"></meta>
+<title>用户列表</title>
+<script type="text/javascript" src="/js/layui/layui.js" charset="utf-8"></script>
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="content-inner">
+			<!--***** REPORT-1 *****-->
+			<div class="row" id="report1">
+				<!--***** CONTENT *****-->
+				<!-- Table -->
+				<table class="layui-hide" id="test"></table>
+				<!-- <div th:include="pager::pager"></div> -->
+			</div>
+		</div>
+	</div>
+
+	<script>
+		layui.use('table', function() {
+			var table = layui.table;
+
+			table.render({
+				elem : '#test',
+				url : '/sys/user/getAll',
+				cols : [ [ 
+				{
+					field : 'uid',
+					width : 80,
+					title : 'id',
+					sort : true
+				}, {
+					field : 'username',
+					width : 80,
+					title : '用户名'
+				}] ],
+				page : true
+			});
+		});
+	</script>
+</body>
+</html>

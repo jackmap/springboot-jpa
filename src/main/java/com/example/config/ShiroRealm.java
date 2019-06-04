@@ -1,5 +1,8 @@
 package com.example.config;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.shiro.SecurityUtils;
@@ -17,8 +20,13 @@ import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.example.dao.PermissionRepository;
+import com.example.dao.RolePermissionRepository;
 import com.example.dao.UserRepository;
+import com.example.dao.UserRoleRepository;
+import com.example.entity.SysPermission;
+import com.example.entity.SysRolePermission;
 import com.example.entity.SysUser;
+import com.example.entity.SysUserRole;
 
 
 /**
@@ -29,11 +37,14 @@ public class ShiroRealm extends AuthorizingRealm {
 	private Log logger = LogFactory.getLog(ShiroRealm.class);
 
 	@Autowired
-	private UserRepository uUserDao;
+	private UserRepository userRepository;
 	
 	@Autowired
-	private PermissionRepository tbPermissionsDao;
-	
+	private UserRoleRepository userRoleRepository;
+	@Autowired
+	private RolePermissionRepository rolePermissionRepository;
+	@Autowired
+	private PermissionRepository permissionRepository;
 
 	/**
 	 * 登录认证
@@ -50,14 +61,21 @@ public class ShiroRealm extends AuthorizingRealm {
 		UsernamePasswordToken token = (UsernamePasswordToken) authenticationToken;
 		logger.info("验证当前Subject时获取到token为：" + token.toString());
 		// 查出是否有此用户
-		SysUser hasUser = uUserDao.findByUsername(token.getUsername());
+		SysUser hasUser = userRepository.findByName(token.getUsername());
 		if (hasUser != null) {
 			Session session = SecurityUtils.getSubject().getSession();
 			// 成功则放入session
 			session.setAttribute("user", hasUser);
-//			int customerId = hasUser.getCustomerId();
-//			List<SysPermission> list = tbPermissionsDao.findAllByCustomerId(customerId);
-			session.setAttribute("permissionslist", hasUser.getRoleList());
+			List<SysUserRole> roleIds=userRoleRepository.findByUid(hasUser.getUid());
+			List<SysPermission> permissionslist =new ArrayList<SysPermission>();
+			for(SysUserRole role:roleIds) {
+				List<SysRolePermission> pIds=rolePermissionRepository.findByRoleId(role.getRoleId());
+				for(SysRolePermission pId:pIds) {
+					SysPermission sys=permissionRepository.findById(pId.getPermissionId()).get();
+					permissionslist.add(sys);
+					}
+			}
+			session.setAttribute("permissionslist", permissionslist);
 			ByteSource salt = ByteSource.Util.bytes(hasUser.getSalt());
 			String realmName = this.getName();
 			logger.info("<<<<<<<<<<<<<<<<"+realmName+"====登录成功>>>>>>>>>>>>>>");
@@ -84,7 +102,7 @@ public class ShiroRealm extends AuthorizingRealm {
 		// 到数据库查是否有此对象
 		// 实际项目中，这里可以根据实际情况做缓存，如果不做，Shiro自己也是有时间间隔机制，2分钟内不会重复执行该方法
 		// user = userMapper.findByName(loginName);
-		SysUser data_user = uUserDao.findByUsername(user.getUsername());
+		SysUser data_user = userRepository.findByName(user.getUsername());
 		if (data_user != null) {
 			// 权限信息对象info,用来存放查出的用户的所有的角色（role）及权限（permission）
 			SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();

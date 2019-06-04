@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+<head>
+<meta charset="utf-8" />
+</head>
+<body>
+	<div th:fragment="pager">
+		<div id="page-section">
+			<div class="pagerWrap">
+				<ul class="grdLinePager">
+					<li class="liBgFirst"><a href="#"
+						data-bind="click:BagDataGrid.FlipPage(1)"></a></li>
+					<li class="liBgPrev"><a href="#"
+						data-bind="click: function () { BagDataGrid.FlipPage(BagDataGrid.GridParams.pageIndex() - 1)  }"></a></li>
+					<li class="liBgCur"><input
+						data-bind="value: BagDataGrid.GridParams.requestedPage"
+						type="text" /> <span>共</span> <span
+						data-bind="text: BagDataGrid.GridParams.totalPages()"></span> <span>
+							页</span></li>
+					<li class="liBGNext"><a href="#"
+						data-bind="click: function () { BagDataGrid.FlipPage(BagDataGrid.GridParams.pageIndex() + 1) }"></a></li>
+					<li class="liBGLast"><a href="#" title="最后一页"
+						data-bind="click: function () { BagDataGrid.FlipPage(BagDataGrid.GridParams.totalPages()) }"></a></li>
+				</ul>
+				<div class="pagerNumWrap">
+					<span>每页显示</span> <select
+						data-bind="options: BagDataGrid.GridParams.pageSizeOptions, value: BagDataGrid.SelectedPageSizeOption "></select>
+					<span>条</span>
+				</div>
+
+			</div>
+		</div>
+
+	</div>
+</body>
+</html>

@@ -1,8 +1,6 @@
 package com.example.entity;
 
 import java.io.Serializable;
-import java.util.List;
-
 import javax.persistence.*;
 
 /**
@@ -15,22 +13,23 @@ import javax.persistence.*;
 public class SysRole implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
+	@GeneratedValue
 	private Integer id; // 编号
 	private String role; // 角色标识程序中判断使用,如"admin",这个是唯一的:
 	private String description; // 角色描述,UI界面显示使用
 	private Boolean available = Boolean.FALSE; // 是否可用,如果不可用将不会添加给用户
 
 	// 角色 -- 权限关系：多对多关系;
-	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "SysRolePermission", joinColumns = { @JoinColumn(name = "roleId") }, inverseJoinColumns = {
-			@JoinColumn(name = "permissionId") })
-	private List<SysPermission> permissions;
-
+//	@ManyToMany(fetch = FetchType.EAGER)
+//	@JoinTable(name = "SysRolePermission", joinColumns = { @JoinColumn(name = "roleId") }, inverseJoinColumns = {
+//			@JoinColumn(name = "permissionId") })
+//	private List<Integer> permissions;
+	private String permissions;
 	// 用户 - 角色关系定义;
-	@ManyToMany
-	@JoinTable(name = "SysUserRole", joinColumns = { @JoinColumn(name = "roleId") }, inverseJoinColumns = {
-			@JoinColumn(name = "uid") })
-	private List<SysUser> users;// 一个角色对应多个用户
+//	@ManyToMany
+//	@JoinTable(name = "SysUserRole", joinColumns = { @JoinColumn(name = "roleId") }, inverseJoinColumns = {
+//			@JoinColumn(name = "uid") })
+//	private List<SysUser> users;// 一个角色对应多个用户
 
 	public Integer getId() {
 		return id;
@@ -48,21 +47,14 @@ public class SysRole implements Serializable {
 		this.role = role;
 	}
 
-	public List<SysPermission> getPermissions() {
+	public String getPermissions() {
 		return permissions;
 	}
 
-	public void setPermissions(List<SysPermission> permissions) {
+	public void setPermissions(String permissions) {
 		this.permissions = permissions;
 	}
 
-	public List<SysUser> getUsers() {
-		return users;
-	}
-
-	public void setUsers(List<SysUser> users) {
-		this.users = users;
-	}
 
 	public String getDescription() {
 		return description;
@@ -70,6 +62,14 @@ public class SysRole implements Serializable {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public Boolean getAvailable() {
+		return available;
+	}
+
+	public void setAvailable(Boolean available) {
+		this.available = available;
 	}
 	
 }
