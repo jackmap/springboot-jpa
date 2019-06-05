@@ -59,7 +59,7 @@ public class LoginController {
                 map.get("password").toString());
         //进行验证，这里可以捕获异常，然后返回对应信息
         subject.login(usernamePasswordToken);
-        return "layout";
+        return "/layout";
     }
 
   

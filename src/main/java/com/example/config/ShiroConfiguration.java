@@ -83,7 +83,6 @@ public class ShiroConfiguration {
 		filterChainDefinitionManager.put("/js/**", "anon");// 静态资源不拦截
 		filterChainDefinitionManager.put("/img/**", "anon");// 静态资源不拦截
 		filterChainDefinitionManager.put("/css/**", "anon");// 静态资源不拦截
-		filterChainDefinitionManager.put("/resources/**", "anon");// 静态资源不拦截
 		filterChainDefinitionManager.put("/**", "authc");//表示需要认证才可以访问
 		
 		shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionManager);
