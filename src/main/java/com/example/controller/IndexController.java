@@ -1,7 +1,13 @@
 package com.example.controller;
 
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * @deprecated:
@@ -12,18 +18,17 @@ public class IndexController {
 
 	@GetMapping("/index")
 	public String Index() {
-		
 		return "index";
 	}
 
-	@GetMapping("/login")
-	public String login() {
-		return "login";
-	}
 
-	@GetMapping("/signup")
-	public String signUp() {
-		return "sign-up";
-	}
+	@Autowired
+	JdbcTemplate jdbcTemplate;
 
+	@ResponseBody
+	@GetMapping("/query")
+	public Map<String, Object> map() {
+		List<Map<String, Object>> list = jdbcTemplate.queryForList("select * FROM sys_user");
+		return list.get(0);
+	}
 }
