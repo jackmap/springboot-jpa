@@ -13,30 +13,28 @@ import javax.persistence.*;
 public class SysUserRole implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
-	@GeneratedValue
 	private int id;
-	
 	@Column(name = "role_id")
-	private Integer roleId;
+	private int roleId;
 
-	private Integer uid;
+	private int uid;
 
 	public SysUserRole() {
 	}
 
-	public Integer getRoleId() {
+	public int getRoleId() {
 		return this.roleId;
 	}
 
-	public void setRoleId(Integer roleId) {
+	public void setRoleId(int roleId) {
 		this.roleId = roleId;
 	}
 
-	public Integer getUid() {
+	public int getUid() {
 		return this.uid;
 	}
 
-	public void setUid(Integer uid) {
+	public void setUid(int uid) {
 		this.uid = uid;
 	}
 

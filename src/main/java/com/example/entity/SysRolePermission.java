@@ -14,30 +14,29 @@ import javax.persistence.*;
 public class SysRolePermission implements Serializable {
 	private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue
     private int id;
 	@Column(name="permission_id")
-	private Integer permissionId;
+	private int permissionId;
 
 	@Column(name="role_id")
-	private Integer roleId;
+	private int roleId;
 
 	public SysRolePermission() {
 	}
 
-	public Integer getPermissionId() {
+	public int getPermissionId() {
 		return this.permissionId;
 	}
 
-	public void setPermissionId(Integer permissionId) {
+	public void setPermissionId(int permissionId) {
 		this.permissionId = permissionId;
 	}
 
-	public Integer getRoleId() {
+	public int getRoleId() {
 		return this.roleId;
 	}
 
-	public void setRoleId(Integer roleId) {
+	public void setRoleId(int roleId) {
 		this.roleId = roleId;
 	}
 

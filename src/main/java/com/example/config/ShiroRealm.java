@@ -24,9 +24,7 @@ import com.example.dao.RolePermissionRepository;
 import com.example.dao.UserRepository;
 import com.example.dao.UserRoleRepository;
 import com.example.entity.SysPermission;
-import com.example.entity.SysRolePermission;
 import com.example.entity.SysUser;
-import com.example.entity.SysUserRole;
 
 
 /**
@@ -37,7 +35,7 @@ public class ShiroRealm extends AuthorizingRealm {
 	private Log logger = LogFactory.getLog(ShiroRealm.class);
 
 	@Autowired
-	private UserRepository userRepository;
+	private UserRepository uUserDao;
 	
 	@Autowired
 	private UserRoleRepository userRoleRepository;
@@ -61,17 +59,17 @@ public class ShiroRealm extends AuthorizingRealm {
 		UsernamePasswordToken token = (UsernamePasswordToken) authenticationToken;
 		logger.info("验证当前Subject时获取到token为：" + token.toString());
 		// 查出是否有此用户
-		SysUser hasUser = userRepository.findByName(token.getUsername());
+		SysUser hasUser = uUserDao.findByUsername(token.getUsername());
 		if (hasUser != null) {
 			Session session = SecurityUtils.getSubject().getSession();
 			// 成功则放入session
 			session.setAttribute("user", hasUser);
-			List<SysUserRole> roleIds=userRoleRepository.findByUid(hasUser.getUid());
+			List<Integer> rolesId=userRoleRepository.findByUid(hasUser.getUid());
 			List<SysPermission> permissionslist =new ArrayList<SysPermission>();
-			for(SysUserRole role:roleIds) {
-				List<SysRolePermission> pIds=rolePermissionRepository.findByRoleId(role.getRoleId());
-				for(SysRolePermission pId:pIds) {
-					SysPermission sys=permissionRepository.findById(pId.getPermissionId()).get();
+			for(Integer roleId:rolesId) {
+				List<Integer> pIds=rolePermissionRepository.findByRoleId(roleId);
+				for(Integer pId:pIds) {
+					SysPermission sys=permissionRepository.findById(pId).get();
 					permissionslist.add(sys);
 					}
 			}
@@ -102,7 +100,7 @@ public class ShiroRealm extends AuthorizingRealm {
 		// 到数据库查是否有此对象
 		// 实际项目中，这里可以根据实际情况做缓存，如果不做，Shiro自己也是有时间间隔机制，2分钟内不会重复执行该方法
 		// user = userMapper.findByName(loginName);
-		SysUser data_user = userRepository.findByName(user.getUsername());
+		SysUser data_user = uUserDao.findByUsername(user.getUsername());
 		if (data_user != null) {
 			// 权限信息对象info,用来存放查出的用户的所有的角色（role）及权限（permission）
 			SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();

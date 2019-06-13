@@ -10,7 +10,7 @@ import com.example.entity.SysUser;
 */
 public interface UserRepository  extends JpaRepository<SysUser, Integer> {
 
-	SysUser findByNameOrEmail(String name, String email);
+	SysUser findByUsernameOrEmail(String username, String email);
 
-	SysUser findByName(String name);
+	SysUser findByUsername(String username);
 }

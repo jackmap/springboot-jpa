@@ -12,5 +12,5 @@ import com.example.entity.SysUserRole;
 */
 public interface UserRoleRepository  extends JpaRepository<SysUserRole, Integer> {
 
-	 List<SysUserRole>  findByUid(Integer userId);
+	 List<Integer>  findByUid(Integer userId);
 }

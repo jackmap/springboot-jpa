@@ -1,24 +1,16 @@
 package com.example.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.alibaba.fastjson.JSON;
 import com.example.entity.SysUser;
-import com.example.model.JSONResult;
-import com.example.model.PageModel;
 
 /**
  * @deprecated:
@@ -30,33 +22,30 @@ public class UserController {
 	@Autowired
 	public com.example.service.UserService UserService;
 
-
 	@GetMapping("/getAll")
 	@ResponseBody
-	public JSONResult GetUsers(PageModel pagemodel) {
-		JSONResult result=new JSONResult();
+	public Page<SysUser> GetIndex() {
+		int pageNumber = 0, size = 10;
 		Sort sort = new Sort(Sort.Direction.DESC, "uid");
-		Pageable pageable = PageRequest.of(pagemodel.getPage()-1, pagemodel.getLimit(), sort);
+		Pageable pageable = PageRequest.of(pageNumber, size, sort);
 		Page<SysUser> page = UserService.findAll(pageable);
-		result.setCode(0);
-		result.setData(page.getContent());
-		result.setCount(page.getTotalPages());
-		return result;
+		System.out.print(page.getSize());
+		return page;
 	}
 
-	@DeleteMapping("/deleteById")
+	@GetMapping("/deleteById")
 	@ResponseBody
 	public void DeleteById(Integer id) {
 		UserService.deleteById(id);
 	}
 
-	@PostMapping("/save")
+	@GetMapping("/save")
 	@ResponseBody
 	public void Save(SysUser user) {
 		UserService.AddSysUser(user);
 	}
 
-	@PostMapping("/update")
+	@GetMapping("/update")
 	@ResponseBody
 	public void Update(SysUser user) {
 		UserService.AddSysUser(user);

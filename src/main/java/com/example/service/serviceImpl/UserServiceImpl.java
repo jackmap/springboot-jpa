@@ -35,11 +35,11 @@ public class UserServiceImpl implements UserService {
 	}
 	@Override
 	public SysUser findByUsernameOrEmail(String username, String email) {
-		return userRepository.findByNameOrEmail(username,email);
+		return userRepository.findByUsernameOrEmail(username,email);
 	}
 	@Override
 	public SysUser findByEmail(String email) {
-		return userRepository.findByNameOrEmail(null, email);
+		return userRepository.findByUsernameOrEmail(null, email);
 	}
 	
 	@Override

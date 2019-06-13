@@ -77,13 +77,14 @@ public class ShiroConfiguration {
 		Map<String, String> filterChainDefinitionManager = new LinkedHashMap<>();
 		filterChainDefinitionManager.put("/logout", "logout");// 登出
 		// 登陆页面
-		filterChainDefinitionManager.put("/index/*", "authc");
+		filterChainDefinitionManager.put("/index/*", "anon");
 		filterChainDefinitionManager.put("/transport/**", "authc");
 		filterChainDefinitionManager.put("/login/*", "anon");// anon 可以理解为不拦截
 		filterChainDefinitionManager.put("/js/**", "anon");// 静态资源不拦截
-		filterChainDefinitionManager.put("/img/**", "anon");// 静态资源不拦截
+		filterChainDefinitionManager.put("/images/**", "anon");// 静态资源不拦截
 		filterChainDefinitionManager.put("/css/**", "anon");// 静态资源不拦截
-		filterChainDefinitionManager.put("/**", "authc");//表示需要认证才可以访问
+		filterChainDefinitionManager.put("/resources/**", "anon");// 静态资源不拦截
+		filterChainDefinitionManager.put("/**", "anon");//表示需要认证才可以访问
 		
 		shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionManager);
 		// 登入路径

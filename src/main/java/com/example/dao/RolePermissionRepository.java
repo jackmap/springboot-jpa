@@ -13,5 +13,5 @@ import com.example.entity.SysRolePermission;
 */
 public interface RolePermissionRepository  extends JpaRepository<SysRolePermission, Integer> {
 
-    List<SysRolePermission>  findByRoleId(Integer roleId);
+    List<Integer>  findByRoleId(Integer roleId);
 }

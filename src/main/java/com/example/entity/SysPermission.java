@@ -3,20 +3,17 @@ package com.example.entity;
 import java.io.Serializable;
 import javax.persistence.*;
 
-import org.hibernate.annotations.Generated;
-
 /**
  * The persistent class for the sys_pression database table.
  * 
  */
 @Entity
-@Table(name = "sys_permission")
+@Table(name = "sys_pression")
 @NamedQuery(name = "SysPermission.findAll", query = "SELECT s FROM SysPermission s")
 public class SysPermission implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;// 主键.
 	private String name;// 名称.
 	@Column(columnDefinition = "enum('menu','button')")
