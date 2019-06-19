@@ -1,13 +1,10 @@
 package com.example.service.serviceImpl;
 
 import java.util.List;
-
-import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
 import com.example.dao.UserRepository;
 import com.example.entity.SysUser;
 import com.example.service.UserService;

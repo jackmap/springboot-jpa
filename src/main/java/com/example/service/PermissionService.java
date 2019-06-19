@@ -6,7 +6,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import com.example.entity.SysPermission;
-import com.example.entity.SysUser;
 
 /**
  * @deprecated:

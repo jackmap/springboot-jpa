@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import com.example.dao.PermissionRepository;
 import com.example.entity.SysPermission;
-import com.example.entity.SysUser;
 import com.example.service.PermissionService;
 
 /**
